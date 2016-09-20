@@ -1,0 +1,140 @@
+
+
+\documentclass[journal,transmag]{IEEEtran}
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+% *** PACKAGES ***
+%
+%\usepackage{amsmath}
+%\usepackage{algorithmic}
+%\usepackage{array}
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+%\usepackage{fixltx2e}
+%\usepackage{stfloats}
+% \usepackage{dblfloatfix}
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+%\usepackage{url}
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{TCP Measurements}
+
+\author{\IEEEauthorblockN{Jiri Hamberg\IEEEauthorrefmark{1}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Department of Computer Science,
+University of Helsinki}}
+%\thanks{Manuscript received December 1, 2012; revised August 26, 2015. 
+%Corresponding author: M. Shell (email: http://www.michaelshell.org/contact.html).}}
+
+\markboth{Network Measurement Seminar,~2016}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Transactions on Magnetics Journals}
+
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+\input{./chapters/abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+TCP, Network Measurement
+\end{IEEEkeywords}}
+
+
+\maketitle
+\IEEEdisplaynontitleabstractindextext
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\input{./chapters/introduction}
+
+\section{Metrics and Parameters}
+Here stuff about the metrics of measurements.
+
+\section{Methodology}
+Here stuff about the different methodologies that can be applied to measuring TCP.
+
+\subsection{Testbeds}
+Pros and cons of using testbeds.
+
+\subsection{Live Internet Tests}
+Pros and cons of using live internet tests.
+
+\subsection{Emulation}
+Pros and cons of using emulation.
+
+\section{Applications}
+Applications of the TCP measurements.
+
+\subsection{Evaluation of Congestion Control Algorithms}
+Stuff about congestion control in Vegas, Reno and others variants of TCP.
+
+
+\section{Conclusion}
+The conclusion goes here.
+
+
+%\appendices
+%\section{Proof of the First Zonklar Equation}
+%Appendix one text goes here.
+
+% you can choose not to have a title for an appendix
+% if you want by leaving the argument blank
+
+
+\section*{Acknowledgment}
+%The authors would like to thank...
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%\end{thebibliography}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+%\bibliography{IEEEabrv,./references}
+
+
+%\begin{IEEEbiographynophoto}{Jiri Hamberg}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+\end{document}
+
