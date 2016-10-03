@@ -1,0 +1,17 @@
+TCP measurements, like all network measurements, can be roughly divided to two categories: active measurements and passive measurements. In general, passive measurements aim at understanding and profiling a network without affecting it. Active measurements, on the other hand, try to capture useful information about the state of the network to enhance and adapt the network to changing circumstances.   
+
+Passive measurements are used to evaluate the performance of the TCP protocol. One fundamental difficulty in making robust TCP measurements, is the great number of variables that may affect a measurement. Different link layer technologies, the charasteristics of the data being transmitted and the level of competing traffic, amongst other things, have been shown to have a significant impact on the behaviour of the TCP traffic~\cite{Allman99}. To draw general conclusions from an experiment, we usually need to measure some performance metric of a particular TCP version over varying network conditions~\cite{Allman99}.  
+
+Often the goal of a TCP measurement is to compare the performance of different versions or extensions against each other. This further increases the number of parameters and the dimensionality of the measurement space of the experiment.
+
+The variable that we are mostly interested in measuring is the RTT (round trip time) of TCP segments. In active measurements, we can extract knowledge about the state of the network by observing RTT:s of consecutive segments. We will go through the details in section three. 
+
+When making passive measurements, a metric must be chosen that represents the overall performance of the system that we are evaluating. The metric function is an aggregate value of multiple measurements over a period of time.
+
+%Discussion about measuring techniques and variables to measure. Distinction between active and passive measurements. Aggregate measurements. How to evaluate TCP performance; metrics to consider:
+
+\begin{enumerate}
+	\item Throughput/Goodput
+	\item Fairness
+	\item Loss rate
+\end{enumerate}
