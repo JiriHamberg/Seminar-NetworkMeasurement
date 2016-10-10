@@ -4,14 +4,32 @@ Passive measurements are used to evaluate the performance of the TCP protocol. O
 
 Often the goal of a TCP measurement is to compare the performance of different versions or extensions against each other. This further increases the number of parameters and the dimensionality of the measurement space of the experiment.
 
-The variable that we are mostly interested in measuring is the RTT (round trip time) of TCP segments. In active measurements, we can extract knowledge about the state of the network by observing RTT:s of consecutive segments. We will go through the details in section three. 
+The variable that we are mostly interested in measuring is the RTT (round trip time) of TCP segments. In active measurements, we can extract knowledge about the state of the network by observing RTTs of consecutive segments. We will go through the details in section three. 
 
-When making passive measurements, a metric must be chosen that represents the overall performance of the system that we are evaluating. The metric function is an aggregate value of multiple measurements over a period of time.
+When making passive measurements, a metric must be chosen that represents the overall performance of the system that we are evaluating. The metric function is an aggregate value of multiple measurements over a period of time. A somewhat natural choice is the throughput of the system, meaning the total amount of data transmitted over a normalized period of time. Usually, a better alternative to throughput is goodput, which only takes into account the total amount of transmitted payload.  
 
+The goodput alone cannot be taken as a performance metric. Consider a scenario where there are three peers and a single server in the network. Each peer tries to upload a continuous stream of data to the server taking up the maximum capacity of the bottleneck link. In a set up \textit{A}, each peer sends 100 megabits of data over 30 seconds. In a set up \textit{B}, one of the peers sends 303 megabytes of data over 30 seconds, and the other two peers are unable to send any data. Now, only considering the goodput, set up \textit{B} is clearly better, having goodput of $10.1Mb/s$, whereas set up \textit{A} only achieves goodput of $10.0Mb/s$. Clearly set up \textit{A} is the more desirable because of its \textit{fairness}.
+
+There are quite a few possible ways to formalize the idea of fairness, but one reasonable choice is the formulation by Jain et al.~\cite{Jain84}. Given $n$ users and resource allocation schema $ \textbf{x} = (x_1,~x_2,~..,~x_n)$ (where $x_i$ is the the size of the allocation given to user $i$), the fairness measure $f(\textbf{x})$ of the schema is then given by
+
+\begin{equation}
+f(\textbf{x}) = \frac{ \left(\sum\limits_{i=1}^{n} x_i\right)^2 }{n \sum\limits_{i=1}^{n} x_i^2 } \label{fairness}
+\end{equation}
+
+The fairness measure~\eqref{fairness} has the following properties~\cite{Jain84}:
+\begin{enumerate}
+	\item \textbf{Scale independence}: The unit of measurement does not affect the metric.
+	\item \textbf{Boundedness}:  The metric is bound between 0 (totally unfair) and 1 (totally fair).
+	\item \textbf{Continuity}: Even a slight change in the allocation schema shows in the metric.  
+\end{enumerate}   
+
+A good performance measure of a TCP experiment should take both the goodput and the fairness into account. Sometimes other quantities are used as part of the metric, including segment loss rate, which indicates aggressiveness of the protocol, router queue lengths or the burstiness of connections~\cite{Allman99}. 
+
+ 
 %Discussion about measuring techniques and variables to measure. Distinction between active and passive measurements. Aggregate measurements. How to evaluate TCP performance; metrics to consider:
 
-\begin{enumerate}
-	\item Throughput/Goodput
-	\item Fairness
-	\item Loss rate
-\end{enumerate}
+%\begin{enumerate}
+%	\item Throughput/Goodput
+%	\item Fairness
+%	\item Loss rate
+%\end{enumerate}
