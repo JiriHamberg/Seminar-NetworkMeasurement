@@ -1,12 +1,16 @@
-   
-
-%Passive measurements are used to collect and aggregate data from the network without affecting it. Following passive measurement platforms to be discussed:
+One important aspect of any measurement based TCP experiment, is choosing the environment in which the experiment is to be conducted. In this section, different platforms are considered. We discus pros and cons of each platform and give a high level overview of the techniques involved.  
 
 \subsection{Testbeds}
-Pros and cons of using testbeds.
+A testbed refers to a relatively small isolated network that is fully controlled by the conductors of the experiment~\cite{Allman99}. Testbeds provide total control of the experiment unlike live internet tests, making the experiment possibly more robust and reproducible. The main downside of a testbed is the cost: creating a complex setting with a rich topology can cost a lot of money. 
+
+Compared to simulated settings, testbeds tend to yield more accurate results, since real systems are being tested. 
 
 \subsection{Live Internet Tests}
-Pros and cons of using live internet tests.
+Live Internet tests are experiments, where a mesh of hosts on the Internet, controlled by the experimenters, communicate with one another. There are various ways to set up such an experiment, the most complete of which is to have each of the \textit{N} hosts send data to one another, giving \textit{$O(N^2)$} different network paths to measure with~\cite{Allman99}.
+
+In this type of experiment, the experimenters have no control over the underlying network, making it impossible to measure the effect that the generated traffic has on other traffic of the network on the same path. The main benefit of live internet tests is that they are quite simple and inexpensive to implement and they can be used to run tests in a wide variety of network conditions.
+
+\subsection{Simulation} 
 
 \subsection{Emulation}
 Pros and cons of using emulation.

@@ -1,1 +1,17 @@
-Here we show how passive measurements can be used to evaluate congestion control algorithms. Examples are drawn from the literature.
+In this section, we will be looking at a work by I. Abdeljaouad et al.~\cite{Abdeljaouad10}, where the performance of three modern TCP variants, Cubic, Compound and New Reno, were compared using ns2 network simulator~\cite{Singh12}. We will start by quickly introducing each of the three TCP variants followed by a summary of the experiment and analysis conducted by I. Abdeljaouad et al.
+
+\subsection{Cubic}
+
+Cubic is the default TCP implementation of Linux kernels from version 2.6.19 onwards. The congestion window of Cubic is determined by the following function
+
+\[
+W_{cubic}(t) = C(t - K)^3 + W_{max}   
+\]
+
+where $C$ is a scale factor, $t$ is the time since last congestion window reduction, $W_{max}$ is the window size before last congestion window reduction and $K = (W_{max} \beta / C)^{1 / 3}$, where $\beta$ is the fractional reduction applied to $W_{max}$ during the last reduction~\cite{Ha08}. 
+
+\subsection{Compound}
+ 
+\subsection{New Reno}
+
+\subsection{Experiment and Analysis}
