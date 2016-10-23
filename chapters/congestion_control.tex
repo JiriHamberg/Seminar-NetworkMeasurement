@@ -2,21 +2,21 @@ In this section, we will be looking at a work by I. Abdeljaouad et al.~\cite{Abd
 
 \subsection{Cubic}
 
-Cubic is the default TCP implementation of Linux kernels from version 2.6.19 onwards. The congestion window of Cubic is determined by the following function
+Cubic is the default TCP implementation of Linux kernels from version 2.6.19 onwards. The congestion window of Cubic is determined by the following function~\cite{Ha08}
 
 \[
 W_{cubic}(t) = C(t - K)^3 + W_{max}   
 \]
 
-where $C$ is a scaling factor, $t$ is the time since last congestion window reduction, $W_{max}$ is the window size before last congestion window reduction and $K = (W_{max} \beta / C)^{1 / 3}$, where $\beta$ is the fractional reduction applied to $W_{max}$ during the last reduction~\cite{Ha08}. It follows, that upon a window reduction, the $W_{cubic}$ first grows rapidly, but the growth slows down as the $W_{cubic}$ gets close to previous $W_{max}$. As the window grows past previous $W_{max}$, the $W_{cubic}$ starts to grow rapidly again. 
+where $C$ is a scaling factor, $t$ is the time since last congestion window reduction, $W_{max}$ is the window size before last congestion window reduction and $K = (W_{max} \beta / C)^{1 / 3}$, where $\beta$ is the fractional reduction applied to $W_{max}$ during the last reduction~\cite{Ha08}. It follows~\cite{Ha08}, that upon a window reduction, the $W_{cubic}$ first grows rapidly, but the growth slows down as the $W_{cubic}$ gets close to previous $W_{max}$. As the window grows past previous $W_{max}$, the $W_{cubic}$ starts to grow rapidly again. 
 
 Compared to slow start, the Cubic algorithm better utilizes the knowledge gathered from previous window reduction event, reducing the amount of lost packages. As a self clocking algorithm, the slow start is also biased by RTT of a path: the smaller the RTT, the quicker the slow start grows the congestion window. Cubic on the other hand, is indifferent to the RTT of a path, making it more fair~\cite{Ha08}. 
 
 \subsection{Compound}
 
-Compound is a TCP variant that was introduced in Windows Vista Windows Server 2008. The Compound TCP is based on the insight that the regular TCP congestion avoidance phase is ill suited with modern high throughput networks. Filling the capacity of such a path may take hours, when the congestion window is only increased by one packet every RTT~\cite{Tan05}.
+Compound is a TCP variant that was introduced in Windows Vista Windows Server 2008. The Compound TCP is based on the insight that the regular TCP congestion avoidance phase is ill suited with modern high throughput networks~\cite{Tan05}. Filling the capacity of such a path may take hours, when the congestion window is only increased by one packet every RTT~\cite{Tan05}.
 
-The Compound congestion control algorithm introduces a delay-based component to the congestion window calculations~\cite{Tan05}, during the congestion avoidance phase, while maintaining the default slow start behaviour of regular TCP. The delay based component maintains an exponentially smoothed estimate of current RTT. If the difference between the smoothed current RTT and the measured RTT exceeds a predefined constant, then early congestion is detected. The exact way in which the window size is updated for both the delay-based component and the "regular" component, is a bit technical. Their conjoined effect on the congestion window, can be expressed as follows:
+The Compound congestion control algorithm introduces a delay-based component to the congestion window calculations~\cite{Tan05}, during the congestion avoidance phase, while maintaining the default slow start behaviour of regular TCP. The delay based component maintains an exponentially smoothed estimate of current RTT. If the difference between the smoothed current RTT and the measured RTT exceeds a predefined constant, then early congestion is detected. The exact way in which the window size is updated for both the delay-based component and the "regular" component, is a bit technical. Their conjoined effect on the congestion window, can be expressed as follows~\cite{Tan05}:
 
 \[
 win(t + 1) = win(t) + \alpha win(t)^k
@@ -31,7 +31,7 @@ when packet loss or early congestion is detected. Here $\alpha$, $\beta$ and $k$
 
 New Reno is a TCP variant based on TCP Reno. Reno implements the fast recovery algorithm, in which the slow start phase is skipped in case of a fast retransmit (upon receiving a specific number of acknowledgements with the same sequence number, the sender assumes that the packet was dropped, and immediately resends), halving the current congestion window and immediately starting congestion avoidance. 
 
-New Reno improves the fast recovery algorithm by maintaining a decent flight size and not re-triggering the window reduction during multiple packet losses in a single congestion window~\cite{rfc6582}.  
+New Reno improves the fast recovery algorithm by being able to maintaining a decent flight size and not re-triggering the window reduction during multiple packet losses in a single congestion window~\cite{rfc6582}.  
 
 \subsection{Experiment and Analysis}
 
@@ -69,7 +69,7 @@ To measure the fairness of the TCP variants, the set up was slightly modified. I
 	\label{fig:topology2}
 \end{figure}
 
-The fairness was measured for each TCP variant with the number of concurrent senders, $M$, varying from 10 to 200. The RTTs of the senders were randomly selected from a uniform distribution ranging from $20 + 230/M$ to $250$ milliseconds to approximate variance in RTTs of TCP connections in real world. Figure~\ref{fig:fairness1} by I. Abdeljaouad et al.~\cite{Abdeljaouad10} shows the measured fairness index~\eqref{fairness} for each TCP variant as a function of $M$.
+The fairness was measured for each TCP variant with the number of concurrent senders, $M$, varying from 10 to 200. The RTTs of the senders were randomly selected from a uniform distribution ranging from $20 + 230/M$ to $250$ milliseconds to approximate variance in RTTs of TCP connections in real world. Figure~\ref{fig:fairness1} shows the measured fairness index~\eqref{fairness} for each TCP variant as a function of $M$.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_fairness_1.png}
@@ -79,7 +79,7 @@ The fairness was measured for each TCP variant with the number of concurrent sen
 
 The measurements clearly show that Cubic has the highest fairness of the variants. This result is likely due to the fact that the Cubic treats connections with different RTTs equally, whereas the other variants favour connections with short RTTs. Compound seems to be somewhat fairer than New Reno when the number of concurrent connections is greater than 70. 
 
-In the second set of simulations, the authors looked at the behaviour of the TCP variants over wireless links. The scenario was similar to the previously discussed simulations, except now the TCP sources and sinks at the end of the forward path were mobile and the wireless link was the bottleneck of the connections. All wired links were 1Gbps, while the wireless link and the mobile nodes ran the IEEE802.11g protocol at 54Mbps data rate. Figure~\ref{fig:topology3}, by I. Abdeljaouad et al.~\cite{Abdeljaouad10}, shows the network topology of this scenario. Reverse traffic was introduced to the network similarly to the wired scenario.     
+In the second set of simulations, the authors looked at the behaviour of the TCP variants over wireless links. The scenario was similar to the previously discussed simulations, except now the TCP sources and sinks at the end of the forward path were mobile and the wireless link was the bottleneck of the connections. All wired links were 1Gbps, while the wireless link and the mobile nodes ran the IEEE802.11g protocol at 54Mbps data rate. Figure~\ref{fig:topology3} shows the network topology of this scenario. Reverse traffic was introduced to the network similarly to the wired scenario.     
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_topology_3.png}
@@ -87,7 +87,7 @@ In the second set of simulations, the authors looked at the behaviour of the TCP
 	\label{fig:topology3}
 \end{figure}
 
-The measurements show that New Reno outperformed Compound and Cubic in both goodput and fairness. This is not surprising, since Cubic and Compound are optimized for high throughput networks~\cite{Ha08,Tan05}. The goodputs obtained by all the variants are quite low. The authors argue, that this is mainly due to the reverse traffic causing ACK packages to be drastically delayed, which severely hampers the performance of all three variants. Figure~\ref{fig:goodput}, by I. Abdeljaouad et al. contains the goodputs measured for each variant as a function of concurrent connections.
+The measurements show that New Reno outperformed Compound and Cubic in both goodput and fairness. This is not surprising, since Cubic and Compound are optimized for high throughput networks~\cite{Ha08,Tan05}. The goodputs obtained by all the variants are quite low. The authors argue, that this is mainly due to the reverse traffic causing ACK packages to be drastically delayed, which severely hampers the performance of all three variants. Figure~\ref{fig:goodput} contains the goodputs measured for each variant as a function of concurrent connections.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_goodput.png}
@@ -95,7 +95,7 @@ The measurements show that New Reno outperformed Compound and Cubic in both good
 	\label{fig:goodput}
 \end{figure}
 
-All the protocols achieved a good level of fairness in this set up, New Reno being fairest by a clear margin and Cubic performing slightly better than Compound. Figure~\ref{fig:fairness2}, by I. Abdeljaouad et al. contains the fairness~\eqref{fairness} measured for each variant as a function of concurrent connections.
+All the protocols achieved a good level of fairness in this set up, New Reno being fairest by a clear margin and Cubic performing slightly better than Compound. Figure~\ref{fig:fairness2} contains the fairness~\eqref{fairness} measured for each variant as a function of concurrent connections.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_fairness_2.png}
