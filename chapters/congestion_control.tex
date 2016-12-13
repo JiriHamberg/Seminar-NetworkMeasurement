@@ -29,15 +29,15 @@ when packet loss or early congestion is detected. Here $\alpha$, $\beta$ and $k$
   
 \subsection{New Reno}
 
-New Reno is a TCP variant based on TCP Reno. Reno implements the fast recovery algorithm, in which the slow start phase is skipped in case of a fast retransmit (upon receiving a specific number of acknowledgements with the same sequence number, the sender assumes that the packet was dropped, and immediately resends), halving the current congestion window and immediately starting congestion avoidance. 
+New Reno is a TCP variant based on TCP Reno~\cite{rfc6582}. Reno implements the fast recovery algorithm, in which the slow start phase is skipped in case of a fast retransmit (upon receiving a specific number of acknowledgements with the same sequence number, the sender assumes that the packet was dropped, and immediately resends), halving the current congestion window and immediately starting congestion avoidance. 
 
 New Reno improves the fast recovery algorithm by being able to maintaining a decent flight size and not re-triggering the window reduction during multiple packet losses in a single congestion window~\cite{rfc6582}.  
 
 \subsection{Experiment and Analysis}
 
-The experiment conducted by I. Abdeljaouad et al. consists of two parts: a wired and a wireless simulation. In both set ups, goodput and fairness were measured with and without the presence of reverse traffic. Reverse traffic was introduced to the simulations because it increases the burstiness of the TCP by compressing the ACK messages on the reverse path~\cite{Abdeljaouad10}. 
+The experiment conducted in \cite{Abdeljaouad10} consists of two parts: a wired and a wireless simulation. In both setups, goodput and fairness were measured with and without the presence of reverse traffic. Reverse traffic was introduced to the simulations because it increases the burstiness of the TCP by compressing the ACK messages on the reverse path~\cite{Abdeljaouad10}. 
 
-In the wired set up, a single TCP source sends data to a TCP sink over a 2Mbps bottleneck link. The RTT of the connection is 250ms and the links between the sources and the sinks are 1Gbps. There are also 10 TCP sources on the other side of the bottleneck link, sending reverse traffic to 10 TCP sinks located on the same side of the bottleneck link as the forward traffic source. Figure~\ref{fig:topology1}, by Abdeljaouad et al. shows the network topology of the wired simulation. The connection lasted for 1000 seconds and the TCP sources on the reverse path only sent data from $t=250s$ to $t=500s$ and from $t=750s$ to $t=1000s$. This set up was repeated for each of the three TCP variants. Table~\ref{tab:goodput1} collects the results obtained by  I. Abdeljaouad et al.
+In the wired setup, a single TCP source sends data to a TCP sink over a 2Mbps bottleneck link. The RTT of the connection is 250ms and the links between the sources and the sinks are 1Gbps. There are also 10 TCP sources on the other side of the bottleneck link, sending reverse traffic to 10 TCP sinks located on the same side of the bottleneck link as the forward traffic source. Figure~\ref{fig:topology1} shows the network topology of the wired simulation. The connection lasted for 1000 seconds and the TCP sources on the reverse path only sent data from $t=250s$ to $t=500s$ and from $t=750s$ to $t=1000s$. This setup was repeated for each of the three TCP variants. Table~\ref{tab:goodput1} collects the results obtained by  I. Abdeljaouad et al.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_topology_1.png}
@@ -61,7 +61,7 @@ In the wired set up, a single TCP source sends data to a TCP sink over a 2Mbps b
 
 In this scenario, Cubic and Compound were both able to utilize the whole path capacity when no other traffic was present, both performing slightly better than New Reno. When reverse traffic was introduced, Cubic clearly outperformed Compound and New Reno, and Compound performed slightly better than New Reno.  
 
-To measure the fairness of the TCP variants, the set up was slightly modified. Instead of one sender and one sink in the forward path, $M$ sources and sinks were simulated. Figure~\ref{fig:topology2} shows the modified network topology.
+To measure the fairness of the TCP variants, the setup was slightly modified. Instead of one sender and one sink in the forward path, $M$ sources and sinks were simulated. Figure~\ref{fig:topology2} shows the modified network topology.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_topology_2.png}
@@ -87,7 +87,7 @@ In the second set of simulations, the authors looked at the behaviour of the TCP
 	\label{fig:topology3}
 \end{figure}
 
-The measurements show that New Reno outperformed Compound and Cubic in both goodput and fairness. This is not surprising, since Cubic and Compound are optimized for high throughput networks~\cite{Ha08,Tan05}. The goodputs obtained by all the variants are quite low. The authors argue, that this is mainly due to the reverse traffic causing ACK packages to be drastically delayed, which severely hampers the performance of all three variants. Figure~\ref{fig:goodput} contains the goodputs measured for each variant as a function of concurrent connections.
+The measurements show that New Reno outperformed Compound and Cubic in fairness. This is not surprising, since Cubic and Compound are optimized for high throughput networks~\cite{Ha08,Tan05}. Compound had the best goodput, while New Reno and Cubic had nearly identical goodput. The goodputs obtained by all the variants were quite low. The authors argue, that this is mainly due to the reverse traffic causing ACK packages to be drastically delayed, which severely hampers the performance of all three variants. Figure~\ref{fig:goodput} contains the goodputs measured for each variant as a function of concurrent connections.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_goodput.png}
@@ -95,7 +95,7 @@ The measurements show that New Reno outperformed Compound and Cubic in both good
 	\label{fig:goodput}
 \end{figure}
 
-All the protocols achieved a good level of fairness in this set up, New Reno being fairest by a clear margin and Cubic performing slightly better than Compound. Figure~\ref{fig:fairness2} contains the fairness~\eqref{fairness} measured for each variant as a function of concurrent connections.
+All the protocols achieved a good level of fairness in this setup, New Reno being fairest by a clear margin and Cubic performing slightly better than Compound. Figure~\ref{fig:fairness2} contains the fairness~\eqref{fairness} measured for each variant as a function of concurrent connections.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{images/abdeljaouad10_fairness_2.png}
