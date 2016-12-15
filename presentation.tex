@@ -127,6 +127,8 @@ University of Helsinki \\ % Your institution for the title page
 		\item TCP is the backbone of the Internet
 		
 		\item TCP needs to keep up with evolving Internet
+		
+		\item Analytical models are hard 
 	\end{itemize}
 \end{itemize}
 
@@ -272,7 +274,7 @@ Introduced in Windows Vista and Windows Server 2008\\~\\
 
 Maintains exponentially smoothed estimate of the RTT 
 \begin{itemize}
-	\item Estimate is used in calculating the current window size during TCP startup
+	\item Estimate is used in calculating the current window size during TCP congestion avoidance
 	\item Congestion window consists of two components: the regular congestion window and a RTT based component
 	\item Conjoined effect is approximately
 	\[
